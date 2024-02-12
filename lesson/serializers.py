@@ -1,8 +1,23 @@
 from rest_framework import serializers
+
+from category_lesson.serializers import CategoryLessonSerializer
+from person.serializers import PersonSerializer
 from .models import Lesson
 from person.models import Person
 
 class LessonSerializer(serializers.ModelSerializer):
+    # def get_category(self,obj):
+    #     print(obj)
+    #     return {
+    #         "id": obj.category.id,
+    #         "name": obj.category.name,
+    #     }
+    
+    # category = serializers.SerializerMethodField("get_category")
+    
+    category = CategoryLessonSerializer()
+    
+    students = PersonSerializer(many=True)
     class Meta:
         model = Lesson
         fields = "__all__"
